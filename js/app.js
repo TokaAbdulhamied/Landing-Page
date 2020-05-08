@@ -1,44 +1,38 @@
+const navbar = document.getElementsByClassName("navbar__menu"); 
+const menu = document.getElementById("navbar__list"); 
+const sections = document.querySelectorAll('section'); 
+len = sections.length;
 
+// build navbar 
 
-/**
- * Define Global Variables
- * 
-*/
+for ( section of sections ){
+    let newItem = document.createElement("li");
+    newItem.innerHTML =
+    `<a href="#${section.id}" class="menu__link">${section.getAttribute("data-nav")}</a>` ; 
+    menu.appendChild(newItem);
+}
 
+// scrolling function 
 
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
+function isInViewPort (item){
+    let bounding = item.getBoundingClientRect();
+    if (bounding.top >= 0 && bounding.left >= 0 && bounding.right <= window.innerWidth && bounding.bottom <= window.innerHeight) {
+        return 1;
+    }
+    else return 0;      
+}
+function Isactive (){
+    for ( let i = 0; i < len; i++) {
+        if(isInViewPort(sections[i])){
+            sections[i].classList.add("my-active-class");
+            menu.children[i].classList.add("my-active-menu");
+        }
+        if(!isInViewPort(sections[i])){
+            sections[i].classList.remove("my-active-class");
+            menu.children[i].classList.remove("my-active-menu");
+        }
+        
+    }
 
-
-
-/**
- * End Helper Functions
- * Begin Main Functions
- * 
-*/
-
-// build the nav
-
-
-// Add class 'active' to section when near top of viewport
-
-
-// Scroll to anchor ID using scrollTO event
-
-
-/**
- * End Main Functions
- * Begin Events
- * 
-*/
-
-// Build menu 
-
-// Scroll to section on link click
-
-// Set sections as active
-
-
+}
+window.addEventListener("scroll" , Isactive);
