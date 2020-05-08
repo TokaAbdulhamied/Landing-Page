@@ -30,10 +30,14 @@ function isInViewPort (){
 function isActive (item){
     let menuLink = document.getElementsByClassName("menu__link");
     for (let i = 0; i < len; i++) {
-        if(menuLink[i].getAttribute("href")==`#${item}`)
+        if(menuLink[i].getAttribute("href")==`#${item}`){
             menuLink[i].classList.add("active-item");
-        else 
+            sections[i].classList.add("your-active-class");
+        }    
+        else { 
             menuLink[i].classList.remove("active-item");
+            sections[i].classList.remove("your-active-class");
+        }    
     }
 }
 
