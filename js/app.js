@@ -1,3 +1,5 @@
+// global variables 
+
 const navbar = document.getElementsByClassName("navbar__menu"); 
 const menu = document.getElementById("navbar__list"); 
 const sections = document.querySelectorAll('section'); 
@@ -12,27 +14,27 @@ for ( section of sections ){
     menu.appendChild(newItem);
 }
 
-// scrolling function 
+// viewport function detection 
 
-function isInViewPort (item){
-    let bounding = item.getBoundingClientRect();
-    if (bounding.top >= 0 && bounding.left >= 0 && bounding.right <= window.innerWidth && bounding.bottom <= window.innerHeight) {
-        return 1;
-    }
-    else return 0;      
+function isInViewPort (){
+    for (let i = 0; i < len; i++) {
+        let bounding = sections[i].getBoundingClientRect();
+        if (bounding.top >= 0 && bounding.left >= 0 && bounding.right <= window.innerWidth && bounding.bottom <= window.innerHeight) {
+            isActive(sections[i].getAttribute("id")) ;
+        } 
+    }         
 }
-function Isactive (){
-    for ( let i = 0; i < len; i++) {
-        if(isInViewPort(sections[i])){
-            sections[i].classList.add("my-active-class");
-            menu.children[i].classList.add("my-active-menu");
-        }
-        if(!isInViewPort(sections[i])){
-            sections[i].classList.remove("my-active-class");
-            menu.children[i].classList.remove("my-active-menu");
-        }
-        
-    }
 
+// active funtion 
+
+function isActive (item){
+    let menuLink = document.getElementsByClassName("menu__link");
+    for (let i = 0; i < len; i++) {
+        if(menuLink[i].getAttribute("href")==`#${item}`)
+            menuLink[i].classList.add("active-item");
+        else 
+            menuLink[i].classList.remove("active-item");
+    }
 }
-window.addEventListener("scroll" , Isactive);
+
+window.addEventListener("scroll" , isInViewPort);
